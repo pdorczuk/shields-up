@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kubescreen
+  namespace: operations
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/echesec/kubescreen.git
+      revision: HEAD
+      directories:
+      - path: 03-gitapps/**
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/echesec/kubescreen.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: operations
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

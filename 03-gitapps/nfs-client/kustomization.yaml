@@ -1,0 +1,16 @@
+helmCharts:
+- name: nfs-subdir-external-provisioner
+  includeCRDs: false
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/nfs-client/nfs-client-values.yaml
+  releaseName: nfs
+  version: 4.0.14
+  repo: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+
+
+commonLabels:
+  team: operations
+commonAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /metrics
+  prometheus.io/port: "8000"
+namespace: operations

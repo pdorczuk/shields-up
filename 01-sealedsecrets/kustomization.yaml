@@ -1,0 +1,17 @@
+helmCharts:
+- name: sealed-secrets
+  includeCRDs: true
+  releaseName: sealedsecrets
+  namespace: operations
+  valuesFile: sealedsecrets-values.yaml
+  version: 1.0.6
+  repo: https://charts.bitnami.com/bitnami
+
+resources:
+- namespace.yaml
+- master.key
+- https://raw.githubusercontent.com/bitnami-labs/sealed-secrets/main/helm/sealed-secrets/crds/sealedsecret-crd.yaml
+
+commonLabels:
+  team: operations
+namespace: operations

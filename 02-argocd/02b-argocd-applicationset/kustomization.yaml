@@ -1,0 +1,16 @@
+helmCharts:
+- name: argocd-applicationset
+  includeCRDs: false
+  valuesFile: argocd-applicationset-values.yaml
+  releaseName: argocd-applicationset
+  version: 1.6.0
+  repo: https://argoproj.github.io/argo-helm
+
+
+commonLabels:
+  team: operations
+namespace: operations
+
+
+resources:
+- https://raw.githubusercontent.com/argoproj/argo-helm/master/charts/argocd-applicationset/crds/crd-applicationset.yaml

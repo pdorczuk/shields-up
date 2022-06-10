@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-http-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+spec:
+  rules:
+  - host: argo.echesec.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+             name: argocd-server
+             port:
+               name: https
+  tls:
+  - hosts:
+    - argo.echesec.com
+    secretName: argocd-secret # do not change, this is provided by Argo CD               

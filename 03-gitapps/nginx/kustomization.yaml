@@ -1,0 +1,16 @@
+helmCharts:
+- name: ingress-nginx
+  includeCRDs: true
+  releaseName: nginx
+  namespace: operations
+  valuesFile: nginx-values.yaml
+  version: 4.0.16
+  repo: https://kubernetes.github.io/ingress-nginx
+
+
+commonLabels:
+  team: operations
+commonAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "10254"
+namespace: operations

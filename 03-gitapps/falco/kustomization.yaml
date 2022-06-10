@@ -1,0 +1,20 @@
+helmCharts:
+- name: falco
+  releaseName: falco
+  includeCRDs: true
+  namespace: security
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/falco/falco-values.yaml
+  version: 1.17.4
+  repo: https://falcosecurity.github.io/charts
+
+- name: falco-exporter
+  releaseName: falco-exporter
+  includeCRDs: true
+  namespace: operations
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/falco/falco_exporter-values.yaml
+  version: 0.8.0
+  repo: https://falcosecurity.github.io/charts
+
+commonLabels:
+  team: operations
+namespace: security

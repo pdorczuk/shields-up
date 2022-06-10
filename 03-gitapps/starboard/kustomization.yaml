@@ -1,0 +1,23 @@
+helmCharts:
+- name: starboard-operator
+  includeCRDs: true
+  releaseName: starboard
+  namespace: security
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/starboard/starboard-values.yaml
+  version: 0.9.1
+  repo: https://aquasecurity.github.io/helm-charts/
+- name: starboard-exporter
+  includeCRDs: true
+  releaseName: starboard-exporter
+  namespace: security
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/starboard/starboard_exporter-values.yaml
+  version: 0.3.1
+  repo:  https://giantswarm.github.io/giantswarm-catalog
+
+commonLabels:
+  team: security
+commonAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /metrics
+  prometheus.io/port: "8080"
+namespace: security

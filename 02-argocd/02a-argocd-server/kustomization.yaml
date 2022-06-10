@@ -1,0 +1,25 @@
+helmCharts:
+- name: argo-cd
+  includeCRDs: false
+  valuesFile: argocd-values.yaml
+  releaseName: argocd
+  version: 3.33.1
+  repo: https://argoproj.github.io/argo-helm
+
+
+commonLabels:
+  team: operations
+namespace: operations
+
+
+resources:
+- sealedsecret.yaml
+- ingress-https.yaml
+- ingress-grpc.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/application-crd.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/appproject-crd.yaml
+
+
+patchesStrategicMerge:
+- patch_sealedsecret_manage_argo_secret.yaml
+- patch_dex_copyutil.yaml

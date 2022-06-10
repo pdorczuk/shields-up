@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-dex-server
+spec:
+  selector:
+  template:
+    spec:
+      containers:
+      - command:
+        - /shared/argocd-dex
+        - rundex
+        image: ghcr.io/dexidp/dex:v2.30.0
+        imagePullPolicy: IfNotPresent
+        name: dex-server
+        volumeMounts:
+        - mountPath: /shared
+          name: static-files
+      initContainers:
+      - command:
+        - cp
+        - -n
+        - /usr/local/bin/argocd-dex
+        - /shared
+        image: quay.io/argoproj/argocd:v2.1.5
+        imagePullPolicy: Always
+        name: copyutil
+        volumeMounts:
+        - mountPath: /shared
+          name: static-files

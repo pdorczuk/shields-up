@@ -1,0 +1,16 @@
+helmCharts:
+- name: metallb
+  includeCRDs: false
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/metallb/metallb-values.yaml
+  releaseName: metallb
+  version: 2.5.6
+  repo: https://charts.bitnami.com/bitnami
+
+
+commonLabels:
+  team: operations
+commonAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /metrics
+  prometheus.io/port: "7472"
+namespace: operations

@@ -1,0 +1,26 @@
+helmCharts:
+- name: cert-manager
+  includeCRDs: false
+  releaseName: cert-manager
+  namespace: cert-manager
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/certmanager/certmanager-values.yaml
+  version: 1.5.4
+  repo: https://charts.jetstack.io
+
+
+resources:
+- namespace.yaml
+- sealedsecret.yaml
+- https://github.com/cert-manager/cert-manager/releases/download/v1.5.4/cert-manager.crds.yaml
+- issuer-prod.yaml
+- issuer-stage.yaml
+
+commonLabels:
+  component: ingress
+  application: certmanager
+  team: operations
+commonAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /metrics
+  prometheus.io/port: "8000"
+namespace: cert-manager

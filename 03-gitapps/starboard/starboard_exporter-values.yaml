@@ -1,0 +1,54 @@
+registry:
+  domain: docker.io
+image:
+  name: "giantswarm/starboard-exporter"
+  tag: "0.3.1"
+pod:
+  user:
+    id: 1000
+  group:
+    id: 1000
+
+# container securityContext
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  privileged: false
+  readOnlyRootFilesystem: true
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 220Mi
+  limits:
+    cpu: 100m
+    memory: 220Mi
+
+project:
+  branch: "HEAD"
+  commit: "42d958c65083d64d1ad39235da81e64f5848362d"
+
+exporter:
+  vulnerabilityReports:
+    targetLabels:
+      # - image_namespace
+      # - image_repository
+      # - image_tag
+      # - vulnerability_id
+
+monitoring:
+  serviceMonitor:
+    enabled: true
+
+  grafanaDashboard:
+    enabled: true
+
+psp:
+  enabled: true
+
+networkpolicy:
+  enabled: true
+
+podAnnotations: {}

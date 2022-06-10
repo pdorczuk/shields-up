@@ -1,0 +1,46 @@
+helmCharts:
+- name: promtail
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/observability-stack/promtail-values.yaml
+  releaseName: promtail
+  version: 3.8.2
+  repo: https://grafana.github.io/helm-charts
+
+- name: loki
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/observability-stack/loki-values.yaml
+  releaseName: loki
+  version: 2.6.0
+  repo: https://grafana.github.io/helm-charts
+
+- name: grafana
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/observability-stack/grafana-values.yaml
+  releaseName: grafana
+  version: 6.17.2
+  repo: https://grafana.github.io/helm-charts
+
+- name: prometheus
+  # TODO crd defaults to false so look through all the kustomize.yaml files in every folder and remove the crds: false line
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/observability-stack/prometheus-values.yaml
+  releaseName: prometheus
+  version: 15.3.0
+  repo: https://prometheus-community.github.io/helm-charts
+
+# TODO This is not playing well with kustomize. Getting merge errors. The patch_node-exporter-namespace.yaml file is an 
+# attempt to fix. But I need to move on for now.
+#- name: prometheus-node-exporter
+  # TODO update the valuesFile to github location before adding to Argo.
+  #valuesFile: prometheus-node-exporter-values.yaml
+  #releaseName: prometheus-node-exporter
+  #version: 3.0.0
+  #repo: https://prometheus-community.github.io/helm-charts
+
+
+commonLabels:
+  team: security
+namespace: security
+
+resources:
+- grafana-ingress-https.yaml
+
+
+#patchesStrategicMerge:
+#- patch_node-exporter-namespace.yaml

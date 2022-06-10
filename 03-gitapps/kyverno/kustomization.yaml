@@ -1,0 +1,22 @@
+helmCharts:
+- name: kyverno
+  releaseName: kyverno
+  includeCRDs: true
+  namespace: security
+  valuesFile: https://raw.githubusercontent.com/echesec/kubescreen/master/03-gitapps/kyverno/kyverno-values.yaml
+  version: 2.1.0
+  repo: https://kyverno.github.io/kyverno/
+
+
+resources:
+- namespace.yaml
+- policies/require_labels.yaml
+- policies/disallow_cri_sock_mount.yaml
+
+commonLabels:
+  team: security
+commonAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: /metrics
+  prometheus.io/port: "8000"
+namespace: security
